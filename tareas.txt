@@ -1,0 +1,2 @@
+hecho: Calucular los dias de inicio del año que queremos
+hecho: Generamos la serie para 40.000 dias
