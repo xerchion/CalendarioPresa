@@ -1,6 +1,29 @@
 hecho: Calucular los dias de inicio del año que queremos
-hecho: Generamos la serie para 40.000 dias
-TODO: generarSeries
+hecho: Generamos la serie para 40.000 dias MEJORADA
+hecho: tines que hacer que la serie de turnos fija se genere solo hasta el año que me piden.
+hecho: generarPatron, resultado: patronTurnos
+
+TODO: COMMIT DIARIO Y PUSH EN GITHUB
+
 TODO: Seguir con la lista de tareas de las hojas y las pones aqui, para gestionar.
-TODO: tines que hacer que la serie de turnos fija se genere solo hasta el año que me piden.
-TODO: Podrias borrar la serie despues de utilizarla y ahorrar recursos.
+
+TODO: Obtener un calendario completo del año que se me pide, con festivos y TODO
+    #TODO: QUITAR EL AÑO DE LA CADENA     SERIA LA POSICION 1 DE LA LISTA
+TODO: fusionar calendario real con los el patron de turnos, añadiendo el campo turnoDia
+TODO: Crear vistas para el calendario, sin perder mucho tiempo. HTML/CSS
+        TODO: 1- Vista Principal, eleccion año y turno
+        TODO: 2- Vista Mes
+        TODO: 3- Vista Año
+        TODO: 4- Vista Autenticar
+
+TODO: Generar BBDD usuarios y accesos
+        Usuarios: id_usuario, Nombre, contraseña, turno, coloresTurnos
+        Accesos:id_usuario,fechaYhora,tiempoConex
+        
+TODO: Autenticar entrada
+
+
+
+Sugerencias de Mejora:
+______________________
+#FIXME: Podrias borrar la serie despues de utilizarla y ahorrar recursos.

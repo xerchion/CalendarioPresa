@@ -1,0 +1,12 @@
+Programa principal:         app.py
+Patron de turnos:           generarSerie.py
+Obtener calendario real:    calendarioReal.py
+
+
+
+
+
+
+Obsoleto o pruebas:
+----------------------
+Obtener calendario real primera version:    c.py
