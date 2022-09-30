@@ -1,2 +1,6 @@
 hecho: Calucular los dias de inicio del año que queremos
 hecho: Generamos la serie para 40.000 dias
+TODO: generarSeries
+TODO: Seguir con la lista de tareas de las hojas y las pones aqui, para gestionar.
+TODO: tines que hacer que la serie de turnos fija se genere solo hasta el año que me piden.
+TODO: Podrias borrar la serie despues de utilizarla y ahorrar recursos.

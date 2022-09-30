@@ -39,7 +39,7 @@ def prueba():
 if __name__=="__main__":
     app.run(debug=True)
 
-#con los siguiente creamos URL's dinámicas
+#  con los siguiente creamos URL's dinámicas
 #la ruta recibe un texto y eso lo interpreta como parte de la ruta, dinamicamente, y al ir a esa
 #página lo que hace es abrir dicha pagina y utiliza el nombre que le damos en la url para saludar.
 

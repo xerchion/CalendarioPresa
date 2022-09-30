@@ -54,8 +54,9 @@ valorTurno=["M","T","N","D","M","T","N","D","M","T","N","D"]
 
 patronTurnos=[]
 dias=0
-
-while (dias<40000):
+# Calculo los dias totales para el patrón de turnos
+totalDiasPatron=366+(year_final-year_actual)*366
+while (dias<totalDiasPatron):
     iValor=0
     for iValor in range(len(valorTurno)):
         jRepValor=0
@@ -64,8 +65,14 @@ while (dias<40000):
             
             dias=dias+1
 
+
 """
+
 Tienes la serie de turnos en :   patronTurnos
-Tienes el dia de comienzo segun el turno en 
+Tienes el dia de comienzo segun el turno en ... valorTurnoInicio2022 
+Tienes una variable totalDiasPatron que calcula los dias para el patron, para no sobrecargar
+
+
+#TODO: sigue con la lista de las variables importantes
 """        
 
