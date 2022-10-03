@@ -71,7 +71,7 @@ class Calendario:
 def rellenarMes(calendarioMes):
     mes=Mes()
     mes.nombre=calendarioMes[0].capitalize()
-    print(mes.nombre)
+    #print(mes.nombre)
 
     for i in calendarioMes[8:]:
         dia=Dia()
@@ -101,8 +101,25 @@ for i in range(1,13):
     """ yearCompleto=insertarMes(yearCompleto,calendarioMes)
     print(yearCompleto,len(yearCompleto)) """
 
-print(calendarioReal.meses[1].nombre)
+
+from generarPatron import generarPatron
+patron=generarPatron(2027,"c")
+
+
+
+print(patron)
+print("Longitud:  ",len(patron))    
 
 #TODO SEGUIR AQUI...   AÑADIR LOS TURNOS
 
-    
+iPatron=0 #recorreremos la lista patron con un indice
+
+# hay que recorrer los meses del todo el calendario y asignarle el valor que toque
+print(calendarioReal.meses.copy)
+for mes in calendarioReal.meses.copy:
+        print(mes)
+"""     for dia in calendarioReal.meses[]:
+        dia.turno=patron[iPatron]
+        iPatron=iPatron+1 """
+
+print(calendarioReal.meses[1].dias[1].turno)
