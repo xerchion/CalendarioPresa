@@ -65,7 +65,7 @@ def generarPatron(year,turno):
     patronTurnos=[]
     dias=0
     # Calculo los dias totales para el patrón de turnos
-    totalDiasPatron=366+(year_final-year_inicial)*366 #Multiplico por 366 para k salgan dias de más.
+    totalDiasPatron=366+(year_final-year_inicial)*366+100 #Multiplico por 366 para k salgan dias de más.
     while (dias<totalDiasPatron):
         iValor=0
         for iValor in range(len(valorTurno)):

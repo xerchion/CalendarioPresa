@@ -1,13 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página del calendario</title>
-</head>
-<body>
-    <h1> Has elegio el año: {{ year }} </h1>
-    <h1> Has elegio el Turno: {{ turno }} </h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block contenido %}
+    <h1 class="display-1 text-bg-dark text-center"> Calendario {{ year }} </h1>
+    <h1 class="display-2 text-bg-danger text-center"> Turno {{ turno }} </h1>
+    <h1 class="display-5 text-bg-light text-center"> aqui el mes</h1>
+    <div class="container text-center ">
+        <!-- Cabecera Semana -->
+        <div class="row row-cols-7 text-bg-info">
+          <div class="col">L</div>
+          <div class="col">M</div>
+          <div class="col">X</div>
+          <div class="col">J</div>
+          <div class="col">V</div>
+          <div class="col">S</div>
+          <div class="col">D</div>
+        </div>
+        <!-- Dias -->
+       <div class="row row-cols-7"> 
+<!--        TODO no funciona, tal vez deberias identificar el dia, 
+                        si es domingo o lunes cierra 
+                        el div de semana y abre otro-->
+<!-- prueba -->
+            
+            {% for dia in calendario.meses[mes].dias %}
+                
+                
+                <div class="col"> {{ dia.num  }} </div>
+                {% if dia.numSemana=="7" %}
+                    </div>
+                    <div class="row row-cols-7"> 
+                {% endif %}                
+            {% endfor %}
+        </div>
+            <!-- original -->
+<!--             {% set contador=0 %}
+            {% for dia in calendario.meses[mes].dias %}
+                {% if contador==8 %}
+                    <div class="row row-cols">
+                    {% set contador=0 %}
+                {% endif %}
+                {% set contador=contador+1 %}
+                <div class="col"> {{ dia.num,contador }}</div>
+            {% endfor %} -->
+            
+        </div>
+
+      </div>
+{% endblock %}
