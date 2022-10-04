@@ -60,19 +60,22 @@ class Mes:
     dias=[]   
     nombre=""
     num=0    
-    dias.append("")
+    dias.append(Dia)
+    
 
 class Calendario:
     year=0
     meses=[]
-    meses.append("")
+    meses.append(Mes)
+    
 
 
 def rellenarMes(calendarioMes):
     mes=Mes()
+    mes.dias=[]
+        
     mes.nombre=calendarioMes[0].capitalize()
-    #print(mes.nombre)
-
+    print(calendarioMes)
     for i in calendarioMes[8:]:
         dia=Dia()
         dia.num=i
@@ -80,6 +83,12 @@ def rellenarMes(calendarioMes):
         dia.texto="Sin calcular"
         dia.turno="Sin especificar"
         mes.dias.append(dia)
+        
+    
+
+        
+
+    
         
     return mes
     #yearCompleto={mes[0]:{i for i in mes[8:]:"Turno"}}
@@ -110,16 +119,18 @@ patron=generarPatron(2027,"c")
 print(patron)
 print("Longitud:  ",len(patron))    
 
-#TODO SEGUIR AQUI...   AÑADIR LOS TURNOS
+#// TODO SEGUIR AQUI...   AÑADIR LOS TURNOS
 
 iPatron=0 #recorreremos la lista patron con un indice
-
-# hay que recorrer los meses del todo el calendario y asignarle el valor que toque
-print(calendarioReal.meses.copy)
-for mes in calendarioReal.meses.copy:
-        print(mes)
-"""     for dia in calendarioReal.meses[]:
+# los for para rellenar los turnos en el calendario
+for mes in calendarioReal.meses[1:]:
+    for dia in mes.dias[1:]:
         dia.turno=patron[iPatron]
-        iPatron=iPatron+1 """
+        iPatron+=1
 
-print(calendarioReal.meses[1].dias[1].turno)
+# TODO FALTAN LOS FESTIVOS
+
+
+
+
+
