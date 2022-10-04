@@ -2,6 +2,9 @@ Programa principal:         app.py
 Patron de turnos:           generarSerie.py
 Obtener calendario real:    calendarioReal.py
 
+templates:
+index.HTML
+calendario.html   obsoleto
 
 
 
@@ -10,3 +13,4 @@ Obtener calendario real:    calendarioReal.py
 Obsoleto o pruebas:
 ----------------------
 Obtener calendario real primera version:    c.py
+Calendario en pruebas                       calendario.HTML

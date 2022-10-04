@@ -1,18 +1,4 @@
-"""
-No funciona bien, solo para calendarioMes
 
-
-Reazlo de nuevo empezando de 0 tendrias que cojer el mes entero y 
-con un split entero e ir dividiendo por grupos, teniendo en cuenta que para la primera fila
-tendras 2 elementos, mes y año
-para la segunda 7 elementos 
-para las demas 7 elementos tambien"""
-
-"""
-Para obtener el calendario pero de momento sin turnos
-Solo con los dias reales incluidos festivos
-De momento por Mes
-"""
 
 import calendar as cl
 #Para poner el calendario en español utilizamos el utf de español, asi los dias y meses salen en Español
@@ -21,9 +7,10 @@ import locale
 locale.setlocale(locale.LC_ALL,"es_ES.UTF-8")
 
 
-year=2022
+year=2023      # FIXME  ESTE AÑO ES EL QUE SE DEBE PASAR COMO PARAMETRO A ELECCION DEL USUSARIO
+turno="c"       # FIXME  ESTE AÑO ES EL QUE SE DEBE PASAR COMO PARAMETRO A ELECCION DEL USUSARIO
 
-calendarioMes=cl.month(2022,1)  # el tercer argumento son los espacios, es importante dejarlo sin poner
+calendarioMes=cl.month(year,1)  # el tercer argumento son los espacios, es importante dejarlo sin poner
 # pk sino habria que modificar las funciones de extracción de las cabeceras y los dias
 
 
@@ -50,32 +37,33 @@ def limpiar_year(str_a_split):
     print("Esta es la lista de la funcion limpiar:",lista_limpia)
 
 
-""" Vamos a hacerlo con objetos """    
+# Objetos para el calendario 
 class Dia:
-    num=0
-    texto=""
+    num=0   # ES REDUNDANTE, EL INDICE DE meses.dia nos da esto tambien
+    texto=""    # Supuestamente dia de la semana, SIN USAR (4-10)
     festivo=False
     turno=""
 class Mes:
     dias=[]   
     nombre=""
-    num=0    
-    dias.append(Dia)
-    
-
+    num=0    # ES REDUNDANTE, EL INDICE DE meses nos da esto tambien SIN USAR
+    dias.append(Dia)    # añado un dia en blanco para que el indice 0 quede vacío
 class Calendario:
     year=0
     meses=[]
-    meses.append(Mes)
+    meses.append(Mes)   # añado un dia en blanco para que el indice 0 quede vacío
     
 
-
 def rellenarMes(calendarioMes):
+    """
+    funcion que coge un mes y nos rellena el nombre y los dias segun el mes que le pasamos
+    como mes real obtenido previamente, nos devuelve un mes con sus dias reales y los valores 
+    inicializados por defecto
+    """
     mes=Mes()
     mes.dias=[]
-        
     mes.nombre=calendarioMes[0].capitalize()
-    print(calendarioMes)
+    """ print(calendarioMes) """
     for i in calendarioMes[8:]:
         dia=Dia()
         dia.num=i
@@ -83,25 +71,12 @@ def rellenarMes(calendarioMes):
         dia.texto="Sin calcular"
         dia.turno="Sin especificar"
         mes.dias.append(dia)
-        
-    
-
-        
-
-    
-        
     return mes
-    #yearCompleto={mes[0]:{i for i in mes[8:]:"Turno"}}
-    """ nombreMes=mes[0]
-    dia={}
-    lista_dias=[]
-    for i in mes[8:]:
-        dia={i:["Turno",False]}
-        lista_dias.append(dia) """
+
 
 
 calendarioReal=Calendario()
-calendarioReal.year=2022     #FIXME ESTE VALOR ES TEMPORAL, CAMBIARLO POR EL SUYO (VARIABLE)
+calendarioReal.year=year     #FIXME ESTE VALOR ES TEMPORAL, CAMBIARLO POR EL SUYO (VARIABLE)
 for i in range(1,13):
     calendarioMes=cl.month(year,i)
     calendarioMes=limpiar_year(calendarioMes)
@@ -112,23 +87,32 @@ for i in range(1,13):
 
 
 from generarPatron import generarPatron
-patron=generarPatron(2027,"c")
+patron=generarPatron(year,turno)
 
 
 
-print(patron)
-print("Longitud:  ",len(patron))    
+""" print(patron)
+print("Longitud:  ",len(patron))    """ 
 
-#// TODO SEGUIR AQUI...   AÑADIR LOS TURNOS
+#// TODO   AÑADIR LOS TURNOS
 
-iPatron=0 #recorreremos la lista patron con un indice
+iPatron=0 # recorreremos la lista patron con un indice
 # los for para rellenar los turnos en el calendario
 for mes in calendarioReal.meses[1:]:
     for dia in mes.dias[1:]:
         dia.turno=patron[iPatron]
         iPatron+=1
 
-# TODO FALTAN LOS FESTIVOS
+#// TODO  LOS FESTIVOS
+
+import holidays
+for i in holidays.Spain(years=year).items():
+    mesFestivo=i[0].month
+    diaFestivo=i[0].day
+    calendarioReal.meses[mesFestivo].dias[diaFestivo].festivo=True
+
+# El calendario completo en --->   calendarioReal
+
 
 
 

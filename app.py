@@ -8,7 +8,7 @@ app=Flask(__name__)
 @app.route("/")
 def index():
     #return render_template("index.html", name=900,dato="petrodolar")
-    return render_template("calendario.html")
+    return render_template("index.html")
 #Las siguientes lineas hacen la ruta principal de la aplicación (/) y a esta pagina le 
 # da la funcionalidad de la funcion hola()
 @app.route("/mes/")
