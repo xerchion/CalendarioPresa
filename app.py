@@ -1,7 +1,7 @@
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import forms
-from flask import request
+
 
 # Con esta linea creamos la instancia de la clase Flask a nuestro objeto llamado app que será
 #la aplicación en si.
@@ -11,20 +11,25 @@ app=Flask(__name__)
 @app.route("/", methods=["POST","GET"])
     
 def index():
-    formularioDatos=forms.Datos(request.form)
-    if request.method=="POST":
-        print(formularioDatos.year, formularioDatos.turno)
+    
+#formularioDatos=forms.Datos(request.form)
+ #   if request.method=="POST":
+  #      print(formularioDatos.year, formularioDatos.turno)
+     
         
         
-        
+    
     title="Introduccion de datos"
     #return render_template("index.html", name=900,dato="petrodolar")
-    return render_template("index.html",title=title,form=formularioDatos)
+    return render_template("index.html",title=title)
 #Las siguientes lineas hacen la ruta principal de la aplicación (/) y a esta pagina le 
 # da la funcionalidad de la funcion hola()
-@app.route("/mes/")
-def hola():
-    return("Hola, Mundo")
+@app.route("/mes",methods=["POST","GET"])
+def mes():
+    year=request.form['year']
+    turno=request.form['turno']
+    turno=turno.capitalize()
+    return(render_template("calendarioMes.html",year=year,turno=turno))
     #el return devuelve HTML´s enteros
 
 # Las siguientes lineas crean otra página de prueba de calendarioHTML, puedes borrarlo
