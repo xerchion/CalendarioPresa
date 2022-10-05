@@ -45,6 +45,7 @@ def calendarioReal(year,turno):
         texto=""    # dia de la semana, comienzo a usarlo para poder visualizar bien en html
         festivo=False
         turno=""
+        numSemana=0
     class Mes:
         dias=[]   
         nombre=""
@@ -120,7 +121,7 @@ def calendarioReal(year,turno):
 
 
             #ahora lo vamos a hacer con el numero
-            dia.numSemana=str(curr_date.isoweekday())
+            dia.numSemana=curr_date.isoweekday()
             
 
             

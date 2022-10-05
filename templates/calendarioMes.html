@@ -1,10 +1,26 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-    <h1 class="display-1 text-bg-dark text-center"> Calendario {{ year }} </h1>
-    <h1 class="display-2 text-bg-danger text-center"> Turno {{ turno }} </h1>
-    <h1 class="display-5 text-bg-light text-center"> aqui el mes</h1>
-    <div class="container text-center ">
+<!-- Prueba -->
+<h1 class="display-5 {{ colores[turno] }} text-center"> Calendario {{ year }} Turno {{ turno }} </h1>
+<!-- viejo -->
+<!--     <h1 class="display-5 
+        {% if turno=="A" %}
+            turnoA
+        {% elif turno=="B" %}
+            turnoB
+        {% elif turno=="C" %}
+        bg-danger .bg-gradient
+        {% elif turno=="D" %}
+            turnoD
+        {% else %}
+            turnoE    
+        {% endif %}
+    text-center"> Calendario {{ year }} Turno {{ turno }} </h1> -->
+    <!-- Cabecera de color -->
+    <h1 class="display-7  text-center"> {{ calendario.meses[mes].nombre }}</h1>
+    <div class="container-sm text-center ">
+        
         <!-- Cabecera Semana -->
         <div class="row row-cols-7 text-bg-info">
           <div class="col">L</div>
@@ -17,33 +33,27 @@
         </div>
         <!-- Dias -->
        <div class="row row-cols-7"> 
-<!--        TODO no funciona, tal vez deberias identificar el dia, 
-                        si es domingo o lunes cierra 
-                        el div de semana y abre otro-->
-<!-- prueba -->
-            
+            <!-- Huecos en blanco iniciales -->
+            {% for i in range(1,calendario.meses[mes].dias[1].numSemana-1) %}
+                <div class="col"> {{ " " }} </div>
+            {% endfor %}
+
             {% for dia in calendario.meses[mes].dias %}
-                
-                
                 <div class="col"> {{ dia.num  }} </div>
-                {% if dia.numSemana=="7" %}
+                {% if dia.numSemana==7 %}
                     </div>
                     <div class="row row-cols-7"> 
                 {% endif %}                
             {% endfor %}
+            <!-- Huecos en blanco finales -->
+            {% for i in range(calendario.meses[mes].dias[-1].numSemana,7) %}
+                <div class="col"> {{ " " }} </div>
+            {% endfor %}
         </div>
-            <!-- original -->
-<!--             {% set contador=0 %}
-            {% for dia in calendario.meses[mes].dias %}
-                {% if contador==8 %}
-                    <div class="row row-cols">
-                    {% set contador=0 %}
-                {% endif %}
-                {% set contador=contador+1 %}
-                <div class="col"> {{ dia.num,contador }}</div>
-            {% endfor %} -->
+        <!-- fin dias -->
+
             
         </div>
 
-      </div>
+    </div>
 {% endblock %}

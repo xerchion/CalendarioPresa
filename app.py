@@ -5,7 +5,7 @@ from datetime import date
 import calendarioReal
 
 
-contador=0
+
 year=date.today().year
 
 # Con esta linea creamos la instancia de la clase Flask a nuestro objeto llamado app que será
@@ -26,11 +26,15 @@ def index():
 def mes():
     year=request.form['year']
     turno=request.form['turno']
-    mes=1  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
+
+    #Colores, dependiendo del turno para los css de bootstrap, usados en cabecera y #TODO menu
+    colores={"A":"bg-info", "B":"bg-dark", "C":"bg-danger .bg-gradient" ,"D":"bg-info" ,"E":"bg-info" }
+    
+    mes=9  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
     print(year,turno)
     calendario=calendarioReal.calendarioReal(int(year),turno)
     turno=turno.capitalize()
-    return(render_template("calendarioMes.html",contador=contador,mes=mes,year=year,turno=turno,calendario=calendario))
+    return(render_template("calendarioMes.html",colores=colores,mes=mes,year=year,turno=turno,calendario=calendario))
     #el return devuelve HTML´s enteros
 
 # Las siguientes lineas crean otra página de prueba de calendarioHTML, puedes borrarlo
