@@ -65,6 +65,7 @@ def calendarioReal(year,turno):
         """
         mes=Mes()
         mes.dias=[]
+        
         mes.num=numero
         mes.nombre=calendarioMes[0].capitalize()
         """ print(calendarioMes) """
@@ -111,7 +112,6 @@ def calendarioReal(year,turno):
             import calendar
             #Esto era para el dia en letra, esto sobra
             curr_date = date(year,mes.num,int(dia.num))
-            
             dia.texto=calendar.day_name[curr_date.weekday()].capitalize()[0:2]
             if dia.texto=="Mi":
                 dia.texto="X"

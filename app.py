@@ -28,31 +28,18 @@ def mes():
     turno=request.form['turno']
 
     #Colores, dependiendo del turno para los css de bootstrap, usados en cabecera y #TODO menu
-    colores={"A":"bg-info", "B":"bg-dark", "C":"bg-danger .bg-gradient" ,"D":"bg-info" ,"E":"bg-info" }
-    
-    mes=9  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
+    colores={"A":"bg-success", "B":"bg-primary", "C":"bg-danger" ,"D":"bg-warning" ,"E":"bg-warning bg-opacity-50" }
+    coloresdias={"N": "bg-secondary","T":"bg-warning" ,"M":"bg-info" } #Mañana tarde noche
+
+    mes=10  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
     print(year,turno)
     calendario=calendarioReal.calendarioReal(int(year),turno)
     turno=turno.capitalize()
-    return(render_template("calendarioMes.html",colores=colores,mes=mes,year=year,turno=turno,calendario=calendario))
+    return(render_template("calendarioMes.html",cd=coloresdias,colores=colores,mes=mes,year=year,turno=turno,calendario=calendario))
     #el return devuelve HTML´s enteros
 
 # Las siguientes lineas crean otra página de prueba de calendarioHTML, puedes borrarlo
-@app.route("/calen")
-def prueba():
-    import calendar
-    class CustomHTMLCal(calendar.HTMLCalendar):
-        cssclasses = [style + " text-nowrap" for style in
-                    calendar.HTMLCalendar.cssclasses]
-        cssclass_month_head = "text-center month-head"
-        cssclass_month = "text-center month"
-        cssclass_year = "text-italic lead"
-    a=CustomHTMLCal(calendar.HTMLCalendar)
-    calendario_HTML = calendar.HTMLCalendar(calendar.MONDAY)
-    tablaHTML = calendario_HTML.formatyear(2022, 3)
-    print(tablaHTML)
-    
-    return tablaHTML
+
 
 # con estas lineas activo el debug para no tener que cerrar y abrir el servidor en cada cambio
 #que hiciera, de esta manera no hay que hacer ctrl-c para salir del servidor.
