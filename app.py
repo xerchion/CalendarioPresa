@@ -31,7 +31,7 @@ def mes():
     colores={"A":"bg-success", "B":"bg-primary", "C":"bg-danger" ,"D":"bg-warning" ,"E":"bg-warning bg-opacity-50" }
     coloresdias={"N": "bg-secondary","T":"bg-warning" ,"M":"bg-info" } #Mañana tarde noche
 
-    mes=10  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
+    mes=1  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
     print(year,turno)
     calendario=calendarioReal.calendarioReal(int(year),turno)
     turno=turno.capitalize()

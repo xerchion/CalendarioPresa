@@ -134,7 +134,19 @@ def calendarioReal(year,turno):
     for i in holidays.Spain(years=year).items():
         mesFestivo=i[0].month
         diaFestivo=i[0].day
-        calendarioReal.meses[mesFestivo].dias[diaFestivo].festivo=True
+        calendarioReal.meses[mesFestivo].dias[diaFestivo-1].festivo=True
+    # festivos de loja
+    # lunes, 15 de agosto  Asunción de la Virgen.
+        calendarioReal.meses[8].dias[14].festivo=True
+        #lunes, 29 de agosto  Feria de Loja.
+        calendarioReal.meses[8].dias[28].festivo=True
+        #28 de febrero dia de andalucia
+        calendarioReal.meses[2].dias[27].festivo=True
+        # 1 DE MAYO DIA DEL TRABAJADOR
+        calendarioReal.meses[5].dias[0].festivo=True        
+
+        
+
 
     # El calendario completo en --->   calendarioReal
     return calendarioReal

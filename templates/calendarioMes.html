@@ -31,7 +31,7 @@
             {% endfor %}
 
             {% for dia in calendario.meses[mes].dias %}
-<!--                 #TODO AQUI IRIAN LOS FESTIVOS TAMBIEN -->
+<!--                 # AQUI LOS FESTIVOS TAMBIEN -->
                 {% if dia.festivo %}
                     <div class="col text-bg-danger"> {{ dia.num }} </div>
                 {% else %}
