@@ -1,18 +1,28 @@
+<!-- Esta es la copia de calendarioMes
+para su modificación en anual       -->
+
+
 {% extends 'base.html' %}
 
 {% block contenido %}
-<!-- Prueba -->
+<!-- Cabeceras -->
 <div class=" container">
     <h1 class="display-5 {{ colores[turno] }} bg-gradient text-center"> Calendario {{ year }} Turno {{ turno }} </h1>
-    <h1 class="display-5  text-center border-5"> {{ calendario.meses[mes].nombre }}</h1>
-    </div>
+    Vista año mete
+</div>
 
-    <div class="row row-cols-1 m-2 border-top border-5"></div>
-    <div class="row row-cols-7 m-2  m-lg-3"></div>
+<!--    Contenido de un mes -->
+<!-- #TODO hay que hacer 4 contenedores o filas y 3 columnas
+habria que poner un for para que ande con los meses... -->
+
+
+<div class="row row-cols-2  ">
+    por aqui iria el nombre del mes
+    <div class="row row-cols-7 bg-black  m-lg-3"></div>
     <div class="container-sm text-center ">
         <div class="border"></div>
         <!-- Cabecera Semana -->
-        <div class="row row-cols-7 text-black-25 ">
+        <div class="row row-cols-7 text-black-5 ">
           <div class="col border-dark border-1 border">L</div>
           <div class="col border-dark border-1 border">M</div>
           <div class="col border-dark border-1 border">X</div>
@@ -60,4 +70,8 @@
         </div>
 
     </div>
+</div>
 {% endblock %}
+
+<!-- Contenido original en calendarioMes
+ -->

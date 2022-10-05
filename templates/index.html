@@ -6,7 +6,7 @@
   <!--  Boton de Cambio de datos  -->
 <!--   <a href="\formularioDatos.html" type="button" class="btn btn-primary btn-lg ">Cambiar calendario</a>
  -->
- <form action="{{ url_for('mes') }}" method="POST">
+ <form action="{{ url_for('anual') }}" method="POST">
         
   <div class="mb-3 btn">
     <select name="turno" class="form-select" aria-label="Default select example">
@@ -31,7 +31,6 @@
       {% endfor%}
     </select>
   </div>
-
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {% endblock %}

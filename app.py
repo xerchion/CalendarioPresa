@@ -37,7 +37,20 @@ def mes():
     turno=turno.capitalize()
     return(render_template("calendarioMes.html",cd=coloresdias,colores=colores,mes=mes,year=year,turno=turno,calendario=calendario))
     #el return devuelve HTML´s enteros
+@app.route("/anual",methods=["POST","GET"])
+def anual():
+    year=request.form['year']
+    turno=request.form['turno']
 
+    #Colores, dependiendo del turno para los css de bootstrap, usados en cabecera y #TODO menu
+    colores={"A":"bg-success", "B":"bg-primary", "C":"bg-danger" ,"D":"bg-warning" ,"E":"bg-warning bg-opacity-50" }
+    coloresdias={"N": "bg-secondary","T":"bg-warning" ,"M":"bg-info" } #Mañana tarde noche
+
+    mes=1  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
+    print(year,turno)
+    calendario=calendarioReal.calendarioReal(int(year),turno)
+    turno=turno.capitalize()
+    return(render_template("calendarioYear.html",cd=coloresdias,colores=colores,mes=mes,year=year,turno=turno,calendario=calendario))
 # Las siguientes lineas crean otra página de prueba de calendarioHTML, puedes borrarlo
 
 
@@ -58,9 +71,7 @@ def saludo(nombre):
 
 #ahora vamos a crear otra pagina, para poder pasarle una variable al html y saludar
 
-@app.route("/mes")
-def mes(nombre):
-    return render_template("mes.html", name=nombre)
+
 
 #pruebas
 
