@@ -18,9 +18,9 @@ app=Flask(__name__)
 def index():
     """ parte nueva, de los formularios """
     import formularios
-    datos=formularios.Datos(request.form)
+    datos=formularios.Acceso(request.form)
     if request.method=='POST' and datos.validate(): #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
-        print (datos.year.data)
+        print ("Los datos llegan bien: ",datos.contra_usuario.data, "y", datos.nombre.data)
 
     # fin parte nueva formularios
     title="Introduccion de datos"
