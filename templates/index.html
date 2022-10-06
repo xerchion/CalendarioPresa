@@ -33,4 +33,16 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+Parte nueva-------------
+
+  {% from 'macro.html' import render_field %}
+  <form name="sendMessage" id="datosForm" method="POST">
+    <div class="controls">
+      {{ render_field(form.year,class="form-control") }}
+      {{ render_field(form.turno,class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+
 {% endblock %}

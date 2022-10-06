@@ -1,18 +1,23 @@
 Programa principal:                                 app.py
-Patron de turnos:                                   generarSerie.py
+Patron de turnos:                                   generarPatron.py
 Obtener calendario real:                            calendarioReal.py
 
-Formulario de dats:                                 forms.py
+
+
+Formularios de datos:                                 formularios.py
 
 
 templates:
+--------------
 index.HTML
+Calendario del año entero:                          calendarioYear.HTML
+
 
 Macro para renderizar los campos de intro datos     _macro.html
 seleccion.html (pruebas intro datos)     obsoleto
 calendario.html                          obsoleto
 formularioDatos.html                     obsoleto, guardado por si hacemos el formulario separado
-
+Calendario de un mes especifico:                    calendarioMes.py
 
 
 Obsoleto o pruebas:

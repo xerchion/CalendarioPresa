@@ -16,10 +16,16 @@ app=Flask(__name__)
 @app.route("/", methods=["POST","GET"])
     
 def index():
-    
+    """ parte nueva, de los formularios """
+    import formularios
+    datos=formularios.Datos(request.form)
+    if request.method=='POST' and datos.validate(): #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
+        print (datos.year.data)
+
+    # fin parte nueva formularios
     title="Introduccion de datos"
     #return render_template("index.html", name=900,dato="petrodolar")
-    return render_template("index.html",title=title,year=year)
+    return render_template("index.html",title=title,year=year,form=datos)
 #Las siguientes lineas hacen la ruta principal de la aplicación (/) y a esta pagina le 
 # da la funcionalidad de la funcion hola()
 @app.route("/mes",methods=["POST","GET"])
