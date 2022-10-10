@@ -14,16 +14,18 @@ def mostrarUsuarioNombre(nombre):
     conect.close()        
     return
 def comprobarUsuario(usuario):
-        
+    """ Entrada: un usuario de tipo Usuario,
+    devuelve True si esta en la base de datos, y False si no."""
     conect=sqlite3.connect('cal_press.db')  
     cursor=conect.cursor()      
     cursor.execute("SELECT * FROM usuarios WHERE nombre=? AND contraseña=?",(usuario.nombre,usuario.contraseña))
     result=cursor.fetchone()
+    conect.close()
     if result:
         usuario.turno=result[3]
         return True
-    conect.close()        
     return False
+
 def altaUsuario(usuario):
     """ Meter un usuario nuevo en la BBDD
         Devuelve True si todo es correcto y False si el usuario ya estaba en la BBDD"""
@@ -34,17 +36,13 @@ def altaUsuario(usuario):
     conect=sqlite3.connect('cal_press.db')
     #Creo el cursor, que sirve para hacer consultas o mandatos SQL
     curs=conect.cursor()
-    # Datos de ejemplo, borrar despues
-    nombre="Jose"
-    conword="Abcdff"
-    # comprobar si el usuario ya existe
-    # aqui faltaria un select de varios campos, busca como se hace
+
     tupla_datos=(usuario.nombre,usuario.contraseña)
     curs.execute("SELECT * FROM usuarios WHERE nombre=? AND contraseña=?",(tupla_datos))
     result=curs.fetchone()
     if result:
         #El usuario ya existe
-        print("el usuario ya existe capullin")
+        conect.close()
         return False
     print("no hay ningun usuario asin, asi que seguimos")  
 
@@ -54,15 +52,7 @@ def altaUsuario(usuario):
     curs.execute("SELECT * FROM usuarios")
     result=curs.fetchall()
     nuevo_id=str(len(result)+1)
-    nuevo_id="333"
-
-  
     
-
-    #TODO: meterlo en la bd
-            #return True si lo has podido meter bien
-    #Preparamos la tupla de los datos_alta# lo que le pasamos como parametros de los 
-    # datos debe ser una TUPLA..
     tupla_datos=(nuevo_id,usuario.nombre,usuario.contraseña,usuario.turno)
     
     curs.execute("INSERT INTO usuarios VALUES (:id,:nombre,:contraseña,:turno)", tupla_datos)

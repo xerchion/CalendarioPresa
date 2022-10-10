@@ -11,7 +11,7 @@ usuario=Usuarios.Usuario()
 
 
 year=date.today().year
-
+mensaje=""
 
 
 # Con esta linea creamos la instancia de la clase Flask a nuestro objeto llamado app que será
@@ -86,11 +86,26 @@ def alta():
     import formularios
     title="Altas"
     datos=formularios.AltaUsuario(request.form)
-
+    renderizaAlta=render_template("alta.html",form=datos,msj="")
     if request.method=='POST': #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
         print("llega por post, de momento sin datos")
-        #validamo  
-    return render_template("alta.html",form=datos)
+        #validamos
+        usuario.nombre=datos.nombre.data
+        usuario.contraseña=datos.contra_usuario.data
+        usuario.turno=datos.turno.data
+        if gestionBD.comprobarUsuario(usuario):
+            usuario.nombre=""
+            usuario.contraseña=""
+        else:
+            mj="el usuario no esta, procedemos a darlo de alta"
+            #Guardamos
+            if gestionBD.altaUsuario(usuario):
+                #vamos a pagina de confirmación
+                renderizaAlta=render_template("usuarioExito.html")
+            
+
+         
+    return renderizaAlta
 
 @app.route("/anualllamada",methods=["POST","GET"])
 def anualllamada(usuario):
@@ -113,20 +128,8 @@ def anualllamada(usuario):
 if __name__=="__main__":
     app.run(debug=True)
 
-#  con los siguiente creamos URL's dinámicas
-#la ruta recibe un texto y eso lo interpreta como parte de la ruta, dinamicamente, y al ir a esa
-#página lo que hace es abrir dicha pagina y utiliza el nombre que le damos en la url para saludar.
-
-""" @app.route("/<string:nombre>/")
-def saludo(nombre):
-    return f"Hola, {nombre}" """
-    # al meter el index.html con templates, las url´s dinamicas me dejan de funcionar
-
-#ahora vamos a crear otra pagina, para poder pasarle una variable al html y saludar
 
 
-
-#pruebas
 
 
     

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+
+
+
+
+{% from 'macro.html' import render_field %}
+<form name="sendMessage" id="datosForm" method="POST">
+  <div class="controls">
+    <h1> Datos del usuario guardados con exito</h1>
+    <a href="{{url_for('index')}}">
+        <button type="button" class="btn btn-outline-dark opacity-50 "> 
+           <button type="submit" class="btn btn-primary">Ir la calendario</button>
+            </label>
+        </button></a>
+  </div>
+  
+</form>
+{% endblock %}

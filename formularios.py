@@ -25,16 +25,16 @@ class AltaUsuario(Form):
         validators.length(min=2,max=20),
         validators.data_required()  
     ])
-    contra_usuario=StringField("Contraseña",
+    contra_usuario=PasswordField("Contraseña",
     [
         validators.length(min=2,max=20),
         validators.data_required()
     ])
-    turno=StringField("Turno",  #hacerlo con lista de seleccion
-    [
-        validators.length(min=1,max=1),
-        validators.data_required()  
-    ])
+
+# ejemplo
+    turno = SelectField(u'Programming Language', choices=[('A', 'Turno A'), ('B', 'Turno B'), \
+        ('C', 'Tunro C'),('D', 'Turno D'), ('E', 'Turno E')])
+    
     correo=StringField("E-mail",
     [
         validators.length(min=3,max=40),
