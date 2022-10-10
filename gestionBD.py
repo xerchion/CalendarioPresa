@@ -13,7 +13,17 @@ def mostrarUsuarioNombre(nombre):
         print("El usuario no existe")
     conect.close()        
     return
-
+def comprobarUsuario(usuario):
+        
+    conect=sqlite3.connect('cal_press.db')  
+    cursor=conect.cursor()      
+    cursor.execute("SELECT * FROM usuarios WHERE nombre=? AND contraseña=?",(usuario.nombre,usuario.contraseña))
+    result=cursor.fetchone()
+    if result:
+        usuario.turno=result[3]
+        return True
+    conect.close()        
+    return False
 def altaUsuario(usuario):
     """ Meter un usuario nuevo en la BBDD
         Devuelve True si todo es correcto y False si el usuario ya estaba en la BBDD"""

@@ -9,18 +9,38 @@ year=int(date.today().year)
 
 
 class Acceso(Form):
+    nombre=StringField("Nombre")
+    """
+    ,[
+        validators.length(min=5,max=10)
+    ])"""
+    contra_usuario=PasswordField("Contraseña")
+    """,[
+        validators.length(min=6,max=20)
+    ])"""
+
+class AltaUsuario(Form):
     nombre=StringField("Nombre",
     [
-        validators.length(min=5,max=10)
+        validators.length(min=2,max=20),
+        validators.data_required()  
     ])
-    contra_usuario=PasswordField("Contraseña",
+    contra_usuario=StringField("Contraseña",
     [
-        validators.length(min=6,max=20)
+        validators.length(min=2,max=20),
+        validators.data_required()
     ])
-
-class Alta_usuario(Form):
-    nombre=StringField("Nombre")
-    password=StringField("Contraseña")
+    turno=StringField("Turno",  #hacerlo con lista de seleccion
+    [
+        validators.length(min=1,max=1),
+        validators.data_required()  
+    ])
+    correo=StringField("E-mail",
+    [
+        validators.length(min=3,max=40),
+        validators.data_required()  
+    ])
+    
 class Datos(Form):
     year=IntegerField("Año",
         [

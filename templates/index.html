@@ -6,6 +6,8 @@
   <!--  Boton de Cambio de datos  -->
 <!--   <a href="\formularioDatos.html" type="button" class="btn btn-primary btn-lg ">Cambiar calendario</a>
  -->
+
+
  <form action="{{ url_for('anual') }}" method="POST">
         
   <div class="mb-3 btn">
@@ -41,9 +43,18 @@ Parte nueva-------------
     <div class="controls">
       {{ render_field(form.nombre,class="form-control") }}
       {{ render_field(form.contra_usuario,class="form-control") }}
-      
+      {{ mensaje }}
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
   </form>
+
+  Alta contra_usuario
+  <a href="{{url_for('alta')}}">
+    <button type="button" class="btn btn-outline-dark opacity-50 "> 
+        <img width="20" height="20" src="../static/images/ui-home.svg" alt="no encuentra"> 
+        <label  class="btn  opacity-50 "> 
+            <h7 class="display-7" >Alta nuevo usuario</h7>
+        </label>
+    </button></a>
 
 {% endblock %}
