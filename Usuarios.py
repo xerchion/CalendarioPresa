@@ -4,3 +4,5 @@ class Usuario():
     nombre=""
     contraseña=""
     turno=""
+    correo=""
+    colores=""

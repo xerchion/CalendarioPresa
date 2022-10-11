@@ -35,10 +35,10 @@ class AltaUsuario(Form):
     turno = SelectField(u'Programming Language', choices=[('A', 'Turno A'), ('B', 'Turno B'), \
         ('C', 'Tunro C'),('D', 'Turno D'), ('E', 'Turno E')])
     
-    correo=StringField("E-mail",
+    correo=EmailField("E-mail",
     [
-        validators.length(min=3,max=40),
-        validators.data_required()  
+        validators.length(min=3,max=40)
+          
     ])
     
 class Datos(Form):

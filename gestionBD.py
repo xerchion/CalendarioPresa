@@ -26,6 +26,28 @@ def comprobarUsuario(usuario):
         return True
     return False
 
+def crearBD():
+    conexion=sqlite3.connect('cal_press.db')
+
+    #Creo el cursor, que sirve para hacer consultas o mandatos SQL
+    cursor=conexion.cursor()
+
+    #Hago una creación de tabla #TODO ESTO HABRA QUE QUITARLO SINO DA ERROR PK YA ESTA CREADA LA TABLA
+    cursor.execute(""" CREATE TABLE IF NOT EXISTS usuarios (
+        id TEXT PRIMARY KEY,
+        nombre TEXT NOT NULL,
+        contraseña TEXT NOT NULL,
+        turno TEXT NOT NULL,
+        correo TEXT,
+        cejemplo TEXT) """)
+    # hacer commint
+        #importante no olvidar guardar los datos tras un alta o modificación
+    conexion.commit()
+
+    # cerrar siempre la conesxion a la bd al terminar.
+    conexion.close()
+    return
+    
 def altaUsuario(usuario):
     """ Meter un usuario nuevo en la BBDD
         Devuelve True si todo es correcto y False si el usuario ya estaba en la BBDD"""
@@ -38,6 +60,7 @@ def altaUsuario(usuario):
     curs=conect.cursor()
 
     tupla_datos=(usuario.nombre,usuario.contraseña)
+
     curs.execute("SELECT * FROM usuarios WHERE nombre=? AND contraseña=?",(tupla_datos))
     result=curs.fetchone()
     if result:
@@ -53,10 +76,10 @@ def altaUsuario(usuario):
     result=curs.fetchall()
     nuevo_id=str(len(result)+1)
     
-    tupla_datos=(nuevo_id,usuario.nombre,usuario.contraseña,usuario.turno)
+    tupla_datos=(nuevo_id,usuario.nombre,usuario.contraseña,usuario.turno,usuario.correo,usuario.colores)
     
-    curs.execute("INSERT INTO usuarios VALUES (:id,:nombre,:contraseña,:turno)", tupla_datos)
-
+    curs.execute("INSERT INTO usuarios VALUES (:id,:nombre,:contraseña,:turno,:correo,:colores)", tupla_datos)
+    print("lo hace y sigueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
     # hacer commint
         #importante no olvidar guardar los datos tras un alta o modificación
@@ -70,25 +93,14 @@ def altaUsuario(usuario):
 
 #TODO pasar los usuarios
 
-usuPrueba=Usuarios.Usuario()
+""" usuPrueba=Usuarios.Usuario()
 usuPrueba.id=60
 usuPrueba.nombre="Jose"
 usuPrueba.contraseña="Abcdff"
-usuPrueba.turno="C"
+usuPrueba.turno="C" """
 
 #Creo la conexion a la tabla
-conexion=sqlite3.connect('cal_press.db')
 
-#Creo el cursor, que sirve para hacer consultas o mandatos SQL
-cursor=conexion.cursor()
-
-#Hago una creación de tabla #TODO ESTO HABRA QUE QUITARLO SINO DA ERROR PK YA ESTA CREADA LA TABLA
-cursor.execute(""" CREATE TABLE IF NOT EXISTS usuarios (
-    id TEXT PRIMARY KEY,
-    nombre TEXT NOT NULL,
-    contraseña TEXT NOT NULL,
-    turno TEXT NOT NULL,
-    cejemplo TEXT) """)
 #HASTA AQUI HABRA QUE BORRAR PARA PODER SEGUIR.....
 #TODO Alta usuario
     #Introduccion estática, este ya esta en la BBDD
@@ -96,7 +108,7 @@ cursor.execute(""" CREATE TABLE IF NOT EXISTS usuarios (
 
 #Ahora una introducción dinámica usando variables, en este caso un objeto de la calse Usuarios
 # lo que le pasamos como parametros de los datos debe ser una TUPLA..
-datos_alta=(usuPrueba.id,usuPrueba.nombre,usuPrueba.contraseña,usuPrueba.turno)
+#datos_alta=(usuPrueba.id,usuPrueba.nombre,usuPrueba.contraseña,usuPrueba.turno)
 
 # PARA DAR DE ALTA HAY 3 FORMAS DE HACERLO
 
@@ -119,15 +131,23 @@ datos_alta=(usuPrueba.id,usuPrueba.nombre,usuPrueba.contraseña,usuPrueba.turno)
 #cursor.execute("INSERT INTO usuarios (id,nombre,contraseña,turno )VALUES (:id,:nombre,:contraseña,:turno)", datos_alta)
 
 #importante no olvidar guardar los datos tras un alta o modificación
-conexion.commit()
-
-# hacer consulta de un todo
-cursor.execute("SELECT * FROM usuarios")
-usuario=cursor.fetchall()
-print("todos los usuarios: ",usuario)
-print("Cantidad de usuarios:",len(usuario))
 
 
+def consultaTodos():
+    #Creo la conexion a la tabla
+    conect=sqlite3.connect('cal_press.db')
+    #Creo el cursor, que sirve para hacer consultas o mandatos SQL
+    cursor=conect.cursor()
+    # hacer consulta de un todo
+    cursor.execute("SELECT * FROM usuarios")
+    usuario=cursor.fetchall()
+    print("todos los usuarios: ",usuario)
+    print("Cantidad de usuarios:",len(usuario))
+
+    conect.commit()
+    conect.close()
+
+""" 
 #TODO hacer busquedas de cosas
 #empecemos con el ID
 cursor.execute("SELECT * FROM usuarios WHERE id=?",("24",))
@@ -166,3 +186,4 @@ mostrarUsuarioNombre("Alberto")
 # cerrar siempre la conesxion a la bd al terminar.
 
 
+ """
