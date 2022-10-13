@@ -2,6 +2,12 @@
 
 {% block contenido %}
 
+<!-- {% from 'macro.html' import render_field %}
+ -->
+ poner aqui el formulario nuevo....
+
+
+ <!-- Este es el formulario viejo -->
 <form action="{{ url_for('anual') }}" method="POST">
  
 <div class="container ">
@@ -9,10 +15,9 @@
     
   <div class="row"> 
     <div class="col">
-      <select name="turno" class="form-select" aria-label="Default select example">
-        <!-- Aqui se podria hacer un bucle for para los turnos con sus colores, dejando
-        TODO en una sola linea un option para todos... -->
-   
+      
+      
+      <select required name="turno"  id="turno" class="form-select" aria-label="Default select example" required>
         <option selected disabled>Elige un Turno</option>
         <option class="text-bg-success" value="A">Tunro A</option>
         <option class="text-bg-primary" value="B">Turno B</option>
@@ -41,7 +46,8 @@
       
       </form>
     </div>
-    <div class="col"> <button type="submit" class="btn btn-primary">Ver calendario</button>
+    <div class="col"> 
+      <button type="submit"  class="btn btn-primary">Ver calendario</button>
       
     </div>
   </div>

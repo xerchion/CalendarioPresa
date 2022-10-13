@@ -48,11 +48,12 @@ class Datos(Form):
         validators.data_required()
         ])
        
-                                                    
-    turno=StringField("Turno",
+    turno = SelectField('Turno:', choices=[('A', 'Turno A'), ('B', 'Turno B'), \
+        ('C', 'Tunro C'),('D', 'Turno D'), ('E', 'Turno E')])                                                
+"""     #turno=StringField("Turno",
         [
         validators.length(min=2,max=4),
         validators.data_required(message="Campo obligatorio")]
-        )
+        ) """
     #ejemplo de Lista desplegable
     #lenguaje = SelectField('Programming Language', choices=[('cpp', 'C++'), ('py', 'Python'), ('text', 'Plain Text')])
