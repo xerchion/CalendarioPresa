@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+
+
+  {% from 'macro.html' import render_field %}
+
+  <h1 class="text-center"">  </h1>
+    <div class="container ">
+      <h1 class="text-center">Inicio de sesión</h1> 
+        <h1 class="text-center"">  </h1>
+      <div class="row"> 
+        <div class="col">
+          
+        </div>
+        <div class="col-5">
+          <form class="border-2 border-dark" name="sendMessage" id="datosForm" method="POST">
+                {{ render_field(form.nombre,class="form-control") }}
+                {{ render_field(form.contra_usuario,class="form-control") }}
+                <button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+        </div>
+        <div class="col">
+          
+        </div>
+      </div>
+           
+                 
+                    
+ 
+
+  {% endblock %}

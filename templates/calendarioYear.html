@@ -6,14 +6,8 @@ para su modificación en anual       -->
 
 {% block contenido %}
 <!-- Cabeceras -->
-<div class=" container ">
-    <a href="{{url_for('index')}}">
-    <button type="button" class="btn btn-outline-dark opacity-50 "> 
-        <img width="20" height="20" src="../static/images/ui-home.svg" alt="no encuentra"> 
-        <label  class="btn  opacity-50 "> 
-            <h7 class="display-7" >Volver</h7>
-        </label>
-    </button></a>
+<div class=" container "><div class=" container table-responsive">
+
     <h4 class="container align-items-lg-end"> Bienvenido: {{ usuario }}</h4>
     <h5> {{ mOtro }}</h5>
 
@@ -23,7 +17,7 @@ para su modificación en anual       -->
         Calendario {{ year }} Turno {{ turno }} 
     </h1>
     
-</div>
+</div></div>
 
 
 
@@ -31,10 +25,10 @@ para su modificación en anual       -->
 {% for mes_ver in calendario.meses[1:] %}
     <div class="row row-cols-2 text-center "> 
         
-        <div class="row row-cols-7 bg-black  m-lg-3"></div>
+
         <div class="container-sm text-center ">
             <h3 class="  text-center  border-5"> {{ mes_ver.nombre }}</h3>
-            <div class="border bg-black"></div>
+
             <!-- Cabecera Semana -->
             <div class="row row-cols-7 text-black-5 ">
                 <div class="col border-dark border-1 border">L</div>

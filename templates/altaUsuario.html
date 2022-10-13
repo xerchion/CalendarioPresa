@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+
+
+  {% from 'macro.html' import render_field %}
+
+ 
+    <div class="container ">
+      <h4 class="text-center p-md-4">Alta de nuevo usuario</h4> 
+        
+      <div class="row"> 
+        <div class="col">
+          
+        </div>
+        <div class="col-5">
+            <form name="sendMessage" id="datosForm" method="POST">
+                <div class="controls">
+                  {{ render_field(form.nombre,class="form-control") }}
+                  {{ render_field(form.contra_usuario,class="form-control") }}
+                  {{ render_field(form.turno,class="form-control") }}
+                  {{ render_field(form.correo,class="form-control") }}
+
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+              </form>
+        </div>
+        <div class="col">
+          
+        </div>
+      </div>
+  {% endblock %}

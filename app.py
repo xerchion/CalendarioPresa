@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 from datetime import date
 import calendarioReal
@@ -118,7 +118,7 @@ def alta():
     title="Altas"
     mj="cabecera"
     datos=formularios.AltaUsuario(request.form)
-    renderizaAlta=render_template("alta.html",form=datos,msj=mj)
+    renderizaAlta=render_template("altaUsuario.html",form=datos,msj=mj)
     if request.method=='POST': #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
         print("llega por post, de momento sin datos")
         #validamos
@@ -176,6 +176,46 @@ def anualllamada(usuario):
 # con estas lineas activo el debug para no tener que cerrar y abrir el servidor en cada cambio
 #que hiciera, de esta manera no hay que hacer ctrl-c para salir del servidor.
 # para que funcione no puede ser con "flask run" en la consola, debe ser con "pyton app.py"
+
+
+#iniciar sesion
+@app.route("/iniciarSesion",methods=["POST","GET"])
+def iniciarSesion():
+
+    title="Introduccion de datos"
+    mensaje="Introuduce los datos"
+    print("llega a iniciar sesion")
+    
+    import formularios
+    datos=formularios.Acceso(request.form)
+    renderizar= render_template("iniciarSesion.html",title=title,year=year,form=datos,mensaje=mensaje)
+    if request.method=='POST' and datos.validate(): #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
+        print ("Los datos llegan bien: ",datos.contra_usuario.data, "y", datos.nombre.data)
+        #validamos
+        usuario.nombre=datos.nombre.data
+        usuario.contraseña=datos.contra_usuario.data
+        renderizar=render_template("iniciarSesion.html",title=title,year=year,form=datos)
+        if gestionBD.comprobarUsuario(usuario):
+            print("el usuario esta bien y estos son sus datos",usuario.turno)
+            if usuario.turno!="A":
+                pass
+            anualllamada(usuario)
+            renderizar=anualllamada(usuario)
+        else:
+            usuario.turno=""
+            print("El usuario no existe o la contraseña es incorrecta")
+            mensaje="Este usuario no existe o la contraseña es incorrecta"
+            renderizar=render_template("inciarSesion.html",title=title,year=year,form=datos,mensaje=mensaje)
+            
+    # fin parte nueva formularios
+
+
+    #return render_template("index.html", name=900,dato="petrodolar")
+    return renderizar    
+
+
+
+# fin iniciar sesion
 if __name__=="__main__":
     app.run(debug=True)
 

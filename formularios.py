@@ -9,33 +9,33 @@ year=int(date.today().year)
 
 
 class Acceso(Form):
-    nombre=StringField("Nombre")
+    nombre=StringField("Nombre:")
     """
     ,[
         validators.length(min=5,max=10)
     ])"""
-    contra_usuario=PasswordField("Contraseña")
+    contra_usuario=PasswordField("Contraseña:")
     """,[
         validators.length(min=6,max=20)
     ])"""
 
 class AltaUsuario(Form):
-    nombre=StringField("Nombre",
+    nombre=StringField("Nombre:",
     [
         validators.length(min=2,max=20),
         validators.data_required()  
     ])
-    contra_usuario=PasswordField("Contraseña",
+    contra_usuario=PasswordField("Contraseña:",
     [
         validators.length(min=2,max=20),
         validators.data_required()
     ])
 
 # ejemplo
-    turno = SelectField(u'Programming Language', choices=[('A', 'Turno A'), ('B', 'Turno B'), \
+    turno = SelectField('Turno:', choices=[('A', 'Turno A'), ('B', 'Turno B'), \
         ('C', 'Tunro C'),('D', 'Turno D'), ('E', 'Turno E')])
     
-    correo=EmailField("E-mail",
+    correo=EmailField("E-mail:",
     [
         validators.length(min=3,max=40)
           

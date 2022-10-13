@@ -2,59 +2,47 @@
 
 {% block contenido %}
 
-<h1> Pantalla Principal</h1>
-  <!--  Boton de Cambio de datos  -->
-<!--   <a href="\formularioDatos.html" type="button" class="btn btn-primary btn-lg ">Cambiar calendario</a>
- -->
-
-
- <form action="{{ url_for('anual') }}" method="POST">
-        
-  <div class="mb-3 btn">
-    <select name="turno" class="form-select" aria-label="Default select example">
-      <!-- Aqui se podria hacer un bucle for para los turnos con sus colores, dejando
-      TODO en una sola linea un option para todos... -->
-      <!-- {"A":"bg-success", "B":"bg-primary", "C":"bg-danger" ,"D":"bg-warning" ,"E":"bg-warning bg-opacity-50" } -->
-
-      <option selected>Elige un Turno</option>
-      <option class="text-bg-success" value="A">Tunro A</option>
-      <option class="text-bg-primary" value="B">Turno B</option>
-      <option class="text-bg-danger" value="C">Turno C</option>
-      <option class="text-bg-warning" value="D">Turno D</option>
-      <option class="text-bg-warning bg-opacity-50" value="E">Turno E</option>
-    </select>
-  </div>
-  
-  <div class="mb-3 btn">
-    <select name="year" class="form-select" aria-label="Default select example" >
-      <option selected>Elige un año</option>
-      {% for i in range(year,year+7): %}
-        <option value="{{ i }}"> {{ i }}</option>
-      {% endfor%}
-    </select>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-Usuario Registrado-------------
-
-  {% from 'macro.html' import render_field %}
-  <form name="sendMessage" id="datosForm" method="POST">
-    <div class="controls">
-      {{ render_field(form.nombre,class="form-control") }}
-      {{ render_field(form.contra_usuario,class="form-control") }}
-      {{ mensaje }}
+<form action="{{ url_for('anual') }}" method="POST">
+ 
+<div class="container ">
+  <h4 class="text-center p-md-4">Elige un turno y un año</h4> 
+    
+  <div class="row"> 
+    <div class="col">
+      <select name="turno" class="form-select" aria-label="Default select example">
+        <!-- Aqui se podria hacer un bucle for para los turnos con sus colores, dejando
+        TODO en una sola linea un option para todos... -->
+   
+        <option selected disabled>Elige un Turno</option>
+        <option class="text-bg-success" value="A">Tunro A</option>
+        <option class="text-bg-primary" value="B">Turno B</option>
+        <option class="text-bg-danger"  value="C">Turno C</option>
+        <option class="text-bg-warning" value="D">Turno D</option>
+        <option class="text-bg-warning bg-opacity-50" value="E">Turno E</option>
+      </select>      
     </div>
-    <button type="submit" class="btn btn-primary">Enviar</button>
-  </form>
+    <div class="col-5">
+      <form action="{{ url_for('anual') }}" method="POST">
+       
 
-  Alta contra_usuario
-  <a href="{{url_for('alta')}}">
-    <button type="button" class="btn btn-outline-dark opacity-50 "> 
-        <img width="20" height="20" src="../static/images/ui-home.svg" alt="no encuentra"> 
-        <label  class="btn  opacity-50 "> 
-            <h7 class="display-7" >Alta nuevo usuario</h7>
-        </label>
-    </button></a>
+        
+        
+        
+          <select name="year" class="form-select" aria-label="Default select example" >
+            <option selected>2022</option>
 
+            {% for i in range(year+1,year+7): %}
+
+              <option value="{{ i }}" > {{ i }}</option>
+            {% endfor%}
+          </select>
+       
+       
+      
+      </form>
+    </div>
+    <div class="col"> <button type="submit" class="btn btn-primary">Ver calendario</button>
+      
+    </div>
+  </div>
 {% endblock %}
