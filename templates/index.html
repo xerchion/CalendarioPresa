@@ -2,9 +2,7 @@
 
 {% block contenido %}
 
-<!-- {% from 'macro.html' import render_field %}
- -->
- poner aqui el formulario nuevo....
+
 
 
  <!-- Este es el formulario viejo -->
@@ -16,7 +14,7 @@
   <div class="row"> 
     <div class="col">
       
-      
+      <span required>
       <select required name="turno"  id="turno" class="form-select" aria-label="Default select example" required>
         <option selected disabled>Elige un Turno</option>
         <option class="text-bg-success" value="A">Tunro A</option>
@@ -24,6 +22,7 @@
         <option class="text-bg-danger"  value="C">Turno C</option>
         <option class="text-bg-warning" value="D">Turno D</option>
         <option class="text-bg-warning bg-opacity-50" value="E">Turno E</option>
+      </span>
       </select>      
     </div>
     <div class="col-5">

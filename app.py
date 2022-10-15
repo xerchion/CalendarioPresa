@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for,flash
 
 from datetime import date
 import calendarioReal
@@ -9,7 +9,7 @@ import time
 
 
 usuario=Usuarios.Usuario()
-usuario.nombre="Invitado"
+usuario.nombre="Folastero"
 mOtro="" #servirá para decir al usuario que está viendo otro turno que no es el suyo
 turno=""
 hay="HOla"
@@ -32,11 +32,10 @@ app.secret_key = b'eadbfd1f49d6d770ff5cad200d212c74c8f17389df36f7179210af1f9f481
 #Creamos el index de la app, utilizando templates, en html desde la carpteta templates
 @app.route("/", methods=["POST","GET"])
 def index():
+    redirect(url_for('pruebas'))
     turno=usuario.turno
     nombreUsuario=usuario.nombre
-    import formularios
-    #datos=formularios.Datos(request.form)
-    datos=""
+
     if request.method=='POST': #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
         print("Soy index y llega por post")
     else:
@@ -51,10 +50,27 @@ def index():
         nombreUsuario="Invitado"
         usuario.nombre="Invitado"
         turno=usuario.turno
+#para la prueba
+    import formularios
+    datosCalendario=formularios.Datos(request.form)
 
-    
+    return render_template("pruebas.html",form=datosCalendario,year=2022)
+# fin de prueba
+    #return render_template("index.html",year=year,turno=turno,colores=colores,mensaje=mensaje,nombre=nombreUsuario)
+# ruta de pruebas
+@app.route('/pruebas', methods=['GET', 'POST'])
+def pruebas():
+    flash("hola")
+    print("aqui llega a PRUEBAS")
+    import formularios
+    datosCalendario=formularios.Datos(request.form)
+    if request.method=='POST' and datosCalendario.validate(): #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
+        flash(datosCalendario.nombre.data)
+    time(33)
 
-    return render_template("index.html",year=year,turno=turno,form=datos,colores=colores,mensaje=mensaje,nombre=nombreUsuario)
+    return render_template("pruebas.html",datos=datosCalendario)
+
+
 
 #Las siguientes lineas hacen la ruta principal de la aplicación (/) y a esta pagina le 
 # da la funcionalidad de la funcion hola()
@@ -202,9 +218,6 @@ def login():
   
     import formularios
     datos=formularios.Acceso(request.form)
-
-    renderizar=render_template("iniciarSesion.html",form=datos,nombre=nombreUsuarioActivo,colores=colores)
-
     if request.method=='POST' and datos.validate(): #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
         usuario.nombre=datos.nombre.data
         usuario.contraseña=datos.contra_usuario.data
@@ -216,7 +229,7 @@ def login():
             return anualllamada(usuario)
     #else:
         #logout()
-    return renderizar
+    return render_template("iniciarSesion.html",form=datos,nombre=nombreUsuarioActivo,colores=colores)
         
 
 
