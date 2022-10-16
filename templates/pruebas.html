@@ -16,16 +16,8 @@ PRUEBAS UNICAMENTE
     </div>
     <div class="col-5">
       <form action="{{ url_for('anual') }}" method="POST">
-       {{ render_field(form.turno,class="form-control form-select") }}
-        {{ render_field(form.year,class="form-control form-select") }}
-
- 
-
-
-          
-       
-       
-      
+        {{ render_field(formulario.turno,class="form-control form-select") }}
+        {{ render_field(formulario.year,class="form-control form-select") }}
       </form>
     </div>
     <div class="col"> 

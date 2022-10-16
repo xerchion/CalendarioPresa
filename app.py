@@ -32,9 +32,11 @@ app.secret_key = b'eadbfd1f49d6d770ff5cad200d212c74c8f17389df36f7179210af1f9f481
 #Creamos el index de la app, utilizando templates, en html desde la carpteta templates
 @app.route("/", methods=["POST","GET"])
 def index():
-    redirect(url_for('pruebas'))
+
     turno=usuario.turno
     nombreUsuario=usuario.nombre
+    import formularios
+    datosCalendario=formularios.Datos(request.form)
 
     if request.method=='POST': #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
         print("Soy index y llega por post")
@@ -51,22 +53,23 @@ def index():
         usuario.nombre="Invitado"
         turno=usuario.turno
 #para la prueba
-    import formularios
-    datosCalendario=formularios.Datos(request.form)
 
-    return render_template("pruebas.html",form=datosCalendario,year=2022)
+    session.pop('username', None)
+
+#   activa este return para las pruebas
+    #return render_template("pruebas.html",formulario=datosCalendario,year=2022)
 # fin de prueba
-    #return render_template("index.html",year=year,turno=turno,colores=colores,mensaje=mensaje,nombre=nombreUsuario)
+    return render_template("index.html",formulario=datosCalendario,year=year,turno=turno,colores=colores,mensaje=mensaje,nombre=nombreUsuario)
 # ruta de pruebas
 @app.route('/pruebas', methods=['GET', 'POST'])
 def pruebas():
-    flash("hola")
+    flash("federico")
     print("aqui llega a PRUEBAS")
     import formularios
     datosCalendario=formularios.Datos(request.form)
     if request.method=='POST' and datosCalendario.validate(): #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
         flash(datosCalendario.nombre.data)
-    time(33)
+    
 
     return render_template("pruebas.html",datos=datosCalendario)
 
@@ -224,6 +227,7 @@ def login():
         if gestionBD.comprobarUsuario(usuario):
             session['username'] = usuario.nombre
             session['turn']=usuario.turno
+            session['active']=True
                         #mensaje de introducido bien
             anualllamada(usuario)        
             return anualllamada(usuario)
@@ -240,7 +244,9 @@ def login():
 def logout():
     # remove the username from the session if it's there
 
+
     session.pop('username', None)
+    session.pop('active',None)
     #print(session['turn'])
     #del session['username']
     usuario.nombre="Invitado"
