@@ -12,13 +12,14 @@
     </HEAD>
 
     <BODY>
-        <!-- Barra de navegacion -->
-        <nav class="navbar navbar-expand-lg navbar-brand bg-white">
+        <!-- Barra de navegacion  PRINCIPAL  MENU-->
+        <nav class="navbar navbar-expand-lg navbar-brand bg-white  alert alert-danger" role="alert">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">Calendario Turnos 2.0</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
+
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -29,12 +30,11 @@
                     <li class="nav-item">
                       <a class="nav-link" href="{{ url_for('login') }}">Iniciar Sesion</a>
                     </li>
-
-                  
-                      <li class="nav-item align-items-lg-end">
+                    <li class="nav-item align-items-lg-end">
                         <a class="nav-link" href="{{ url_for('alta') }}">Registrarse</a>
-                      </li>                      
-                    {% endif %}
+                    </li>  
+
+                  {% endif %}
                   {% if 'username' in session %}
                     <li class="nav-item align-items-lg-end">
                       <a class="nav-link" href="{{ url_for('logout') }}">Cerrar sesion</a>
@@ -46,11 +46,11 @@
             </div>
           </nav>        
         <!-- fin barra de navegacion Principal-->
-<!-- Barra de naveegación de turno y año -->
+<!-- Barra de naveegación de Usuario  -->
 
-        <!-- Barra de navegacion -->
-        {% if 'username'  in session %}
-          {% set colorturno=colores[turno] %}
+
+        {% if 'username' in session %}
+          {% set colorturno=colores[session['turn']] %}
         {% else %}
           {% set colorturno="navbar-dark bg-dark" %}
         
@@ -59,24 +59,21 @@
         <nav class="navbar navbar-expand-lg {{ colorturno }} d-flex">
           <div class="container-fluid "> 
          
-            <div class="collapse navbar-collapse m-2" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse " id="navbarNavDropdown">
               <ul class="navbar-nav ">
                 <li class="nav-item ">
-                  <h2 class=" p-md-3 text-white " href="#">Usuario: </h2>
+                  <h2 class=" p-md-1 text-white " href="#">Bienvenido, </h2>
                 </li>
                 <li class="nav-item col-7">
-                  <h2 class=" p-md-3 text-white" href="#">{{ nombre }}</h2>
+                  <h2 class=" p-md-1 text-white" href="#">{{ nombre }}</h2>
                 </li>
                 {% if 'username' in session %}
-                  <li class="nav-item col-6">
-                    <h2 class=" p-md-3 text-white" href="#">Año: {{ year }}</h2>
-<!-- Preuba de integración de los select de año y turno -->
-                    
-                  
-<!-- Preuba de integración de los select de año y turno -->
-                  </li>    
-                  <li class="nav-item col-6">
-                    <h2 class=" p-md-3 text-white" href="#">Turno: {{ turno }}</h2>
+                <!--   <li class="nav-item col-6">
+                     <h2 class=" p-md-3 text-white" href="#">Año: {{ year }}</h2> 
+
+                  </li>   -->  
+                  <li class="nav-item row col-10">
+                    <h2 class=" p-md-1 text-white" href="#">Turno: {{ session["turn"] }}</h2>
                   </li>                    
                 {% endif %}
                           
@@ -91,7 +88,8 @@
             </div>
           </div>
         </nav>        
-      <!-- fin barra de navegacion Turno y año-->
+      <!-- fin barra de navegacion Usuario-->
+
 
 
 {% block contenido %}

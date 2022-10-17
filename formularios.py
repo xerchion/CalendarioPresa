@@ -33,7 +33,7 @@ class AltaUsuario(Form):
         validators.data_required()
     ])
 
-# ejemplo
+
     turno = SelectField('Turno:', 
         [ 
             validators.data_required()
@@ -44,8 +44,7 @@ class AltaUsuario(Form):
 
     correo=EmailField("E-mail:",
     [
-        validators.length(min=3,max=40),
-        validators.data_required()
+        validators.length(min=3,max=40)
           
     ])
     

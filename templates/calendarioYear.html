@@ -5,19 +5,66 @@ para su modificación en anual       -->
 {% extends 'base.html' %}
 
 {% block contenido %}
-<!-- Cabeceras -->
-<div class=" container "><div class=" container table-responsive">
+<!-- Barra de naveegación Leyenda  -->
+<div class="border-2">    
+    <nav class="navbar  navbar-expand-sm pt-13 d-flex bg-white text-center">
+        <div class="container-fluid border-3 border-danger "> 
+    
+            <div class="collapse navbar-collapse " id="navbarNavDropdown">
+                <ul class="navbar-nav row row-col ">
+<!--                     <li class=" ">
+                        <h2 class="p-md-1 text-black " href="#">Leyenda </h2>
+                    </li> -->
+                    <li class="col-6 border-3 border-danger">
+                        <h5 class="  text-black  text-center alert bg-info" href="#">Mañana</h5>
+                    </li>
+                    <li class=" col-6">
+                    <h5 class=" text-black bg-warning  alert alert-dark text-center" href="#">Tarde</h5>
+                    </li>
+                    <li class=" col-6">
+                        <h5 class=" text-black bg-secondary alert alert-dark text-center" href="#">Noche</h5>
+                    </li> 
+                    <li class=" col-6">
+                        <h5 class="  text-white bg-danger alert alert-dark text-center" href="#">Festivo</h5>
+                    </li>
+                </ul>
+                <div class=" container "><div class=" container table-responsive">
+                    <nav class="navbar navbar-expand-sm  pt-13 d-flex bg-white text-center ">
+                         
+                
+                            <h4 class="alert  col-8 display-3 {{ colores[turno] }} text-white-50 bg-gradient text-center"> 
+                                {{ year }} Turno {{ turno }} 
+                            </h4>
+                       </div>
+                    </nav>
+                    
+                </div>
+            </div> 
+            
+                    {% if 'username' in session %}
+                    <!--   <li class="nav-item col-6">
+                        <h2 class=" p-md-3 text-white" href="#">Año: {{ year }}</h2> 
+
+                        </li>   -->  
+<!--                         <li class="nav-item col-6">
+                            <h2 class=" p-md-1 text-white" href="#">Turno: {{ session["turn"] }}</h2>
+                        </li>    -->                 
+                    {% endif %}
+                        
 
 
-    <h5> {{ mOtro }}</h5>
 
-    <h1 class="display-5 {{ colores[turno] }} bg-gradient text-center"> 
+                
+        </div>
+    </nav>
+</div>
         
 
-        Calendario {{ year }} Turno {{ turno }} 
-    </h1>
-    
-</div></div>
+
+<!-- Cabeceras -->
+
+
+</div>
 
 
 
@@ -43,7 +90,7 @@ para su modificación en anual       -->
             
             <!-- Dias -->
             
-        <div class="row row-cols-5  "> 
+        <div class="row "> 
                 
             <!-- Huecos en blanco iniciales -->
                 {% for i in range(1,mes_ver.dias[0].numSemana) %}
@@ -54,9 +101,9 @@ para su modificación en anual       -->
     <!--                 # AQUI LOS FESTIVOS TAMBIEN -->
                     {% if dia.festivo %}
                   
-                        <div class="col-1 text-bg-danger p-md-2 border-dark border-opacity-25 border-1 border-bottom-0 border"> {{ dia.num }} </div>
+                        <div class="col-1 text-bg-danger p-md-2 border-dark border-opacity-25 border-1  border"> {{ dia.num }} </div>
                     {% else %}
-                        <div class="col-1 {{ cd[dia.turno] }}  p-md-2 order-dark border-opacity-25 border-1 border-bottom-0 border""> 
+                        <div class="col-1 {{ cd[dia.turno] }}  p-md-2 order-dark border-opacity-25 border-1  border""> 
                             <div class=" col" > {{ dia.num }}</div>  </div>
                     {% endif %}
                     <!-- si es final de semana cerramos un div y abrimos el siguiente -->

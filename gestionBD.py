@@ -23,6 +23,7 @@ def comprobarUsuario(usuario):
     conect.close()
     if result:
         usuario.turno=result[3]
+    
         
         return True
     return False
