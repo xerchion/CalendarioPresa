@@ -10,34 +10,36 @@
  <!-- Este es el formulario Nuevo -->
 <form action="{{ url_for('anual') }}" method="POST">
  
+  <h1 class="text-center"">  </h1>
   <div class="container ">
-    
-    <h4 class="text-center p-md-4">Elige un turno y un año</h4> 
+
+    <h1 class="text-center">Datos Calendario </h1> 
+    <h1 class="text-center"">  </h1>
+    <div class="row"> 
+      <div class="col-2"> </div> 
+      <div class="col-2"></div>
       
-    <div class="row-cols-8"> 
-      <div class="col-3">
-        
+      
+      <div class="col-4">
         {{ render_field(formulario.turno,class="form-control form-select") }}
-        {{ render_field(formulario.year,class="form-control form-select") }}  
+        {{ render_field(formulario.year,class="form-control form-select") }}            
+        <button type="submit"  class="btn btn-primary">Ver calendario</button>
       </div>
       <div class="row-cols-5"> 
         <div class="col-2"> 
-          <button type="submit"  class="btn btn-primary">Ver calendario</button>
-  <!--       <select required name="turno"  id="turno" class="form-select" aria-label="Default select example" required>
-          <option selected disabled>Elige un Turno</option>
-          <option class="text-bg-success" value="A">Tunro A</option>
-          <option class="text-bg-primary" value="B">Turno B</option>
-          <option class="text-bg-danger"  value="C">Turno C</option>
-          <option class="text-bg-warning" value="D">Turno D</option>
-          <option class="text-bg-warning bg-opacity-50" value="E">Turno E</option>
-  
-        </select>   -->    
+
         </div>
+      </div> 
 
-
-        
-      </div>
-    </div>
-  </div>
 </form>
+        
+          
+        
+      
+  
+ 
+
+
+
+
 {% endblock %}

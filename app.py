@@ -2,10 +2,14 @@
 from flask import Flask, render_template, request, redirect, session, url_for,flash
 
 from datetime import date
+
+
 import calendarioReal
 import Usuarios
 import gestionBD
 import time
+
+import formularios
 
 
 usuario=Usuarios.Usuario()
@@ -34,10 +38,13 @@ app.secret_key = b'eadbfd1f49d6d770ff5cad200d212c74c8f17389df36f7179210af1f9f481
 def index():
 
 
-    print(session, "cuando llega a index")
+    if 'message' in session:
+        print("hay mensajes", session)
+    print(session)
+
     turno=usuario.turno
     nombreUsuario=usuario.nombre
-    import formularios
+
     datosCalendario=formularios.Datos(request.form)
 
     if request.method=='POST': #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
@@ -63,14 +70,16 @@ def index():
 # fin de prueba
     return render_template("index.html",formulario=datosCalendario,year=year,turno=turno,colores=colores,mensaje=mensaje,nombre=nombreUsuario)
 # ruta de pruebas
+
 @app.route('/pruebas', methods=['GET', 'POST'])
 def pruebas():
-    flash("federico")
+    #flash("federico")
     print("aqui llega a PRUEBAS")
     import formularios
     datosCalendario=formularios.Datos(request.form)
     if request.method=='POST' and datosCalendario.validate(): #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
-        flash(datosCalendario.nombre.data)
+        #flash(datosCalendario.nombre.data)
+        pass
     
 
     return render_template("pruebas.html",datos=datosCalendario)
@@ -119,8 +128,7 @@ def anual():
 
 
     #Colores, dependiendo del turno para los css de bootstrap, usados en cabecera y #TODO menu
-    colores={"A":"bg-success", "B":"bg-primary", "C":"bg-danger" ,"D":"bg-warning" ,"E":"bg-warning bg-opacity-50" }
-    coloresdias={"N": "bg-secondary","T":"bg-warning" ,"M":"bg-info" } #Mañana tarde noche
+
 
     mes=1  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
     print(year,turno)
@@ -134,53 +142,45 @@ def anual():
 # Las siguientes lineas crean otra página de prueba de calendarioHTML, puedes borrarlo
 @app.route("/alta",methods=["POST","GET"])
 def alta():
-    import formularios
-    nombreUsuario="Invitado"
-
-    title="Altas"
-
     datos=formularios.AltaUsuario(request.form)
-    renderizaAlta=render_template("altaUsuario.html",form=datos,nombre=nombreUsuario)
+    renderizaAlta=render_template("altaUsuario.html",form=datos,nombre="Invitado")
     if request.method=='POST': #el llamar a validate, parece estar obsoleto, ya lo hace en el formulario
         print("llega por post, de momento sin datos")
         #validamos
         usuario.nombre=datos.nombre.data
-        if usuario.nombre!=None:
-            print(usuario.nombre, "lleaga hasa aquilllll")
-            usuario.contraseña=datos.contra_usuario.data
-            usuario.turno=datos.turno.data
-            usuario.correo=datos.correo.data
-            usuario.colores=""
-            if gestionBD.comprobarUsuario(usuario):
-                nombreUsuario="Invitado"
-                usuario.contraseña=""
-                print("el usuario ya esta en la BD aaaaaaaaaaaaaaaaaaa")
-                flash("Este usuario y contraseña ya están registrados, puedes ir a iniciar sesión diréctamente")
+        usuario.contraseña=datos.contra_usuario.data
+        usuario.turno=datos.turno.data
+        usuario.correo=datos.correo.data
+        usuario.colores=""
+        if gestionBD.comprobarUsuario(usuario):
+            flash("Este usuario y contraseña ya están registrados")
+           
+            #calendario=calendarioReal.calendarioReal(int(year),usuario.turno)                
+            #renderizaAlta=render_template("calendarioYear.html",colores=colores,cd=coloresdias,mes=mes,year=year,nombre=session['username'],turno=session['turn'],calendario=calendario)
 
-                """ calendario=calendarioReal.calendarioReal(int(year),usuario.turno)                
-                renderizaAlta=render_template("calendarioYear.html",cd=coloresdias,colores=colores,mes=mes,year=year,nombre=nombreUsuario,turno=usuario.turno,calendario=calendario) """
-
-            else:
-                print("no no no no está y le damos de altaen la BD aaaaaaaaaaaaaaaaaaa")
-
-
-
-                mj="el usuario no esta, procedemos a darlo de alta"
+        else:
+            print("no esta, lo doy de alta")
+            
+            #TODO aqui tiene que ir el loggin o la llamada al login........ 
+            session['username']=usuario.nombre
+            session['turn']=usuario.turno
                 #Guardamos
-                if gestionBD.altaUsuario(usuario):
+            if gestionBD.altaUsuario(usuario):
+                print("dado bien de alta")
                     #vamos a pagina de confirmación
-                    #renderizaAlta=render_template("usuarioExito.html",usuario=usuario.nombre)
-                    calendario=calendarioReal.calendarioReal(int(year),usuario.turno)
-                    renderizaAlta=render_template("calendarioYear.html",cd=coloresdias,colores=colores,mes=mes,year=year,turno=usuario.turno,nombre=usuario.nombre,calendario=calendario)
-        else:            
+                #flash("Usuario dado de alta satisfactoriamente, ahora por favor inicie sesion")
+
+                #renderizaAlta=render_template("usuarioExito.html",usuario=usuario.nombre)
+                calendario=calendarioReal.calendarioReal(int(year),usuario.turno)
+                renderizaAlta=render_template("calendarioYear.html",cd=coloresdias,colores=colores,mes=mes,year=year,turno=usuario.turno,nombre=usuario.nombre,calendario=calendario)
+    else:            
             
             print(usuario.turno,usuario.nombre,"aquiiiiiiiiiiiiiiiiiiiii")
-            calendario=calendarioReal.calendarioReal(int(year),usuario.turno)
+            redirect(request.url)
+            #calendario=calendarioReal.calendarioReal(int(year),usuario.turno)
 
-            renderizaAlta=render_template("calendarioYear.html",msj=mj,cd=coloresdias,colores=colores,mes=mes,year=year,nombre=nombreUsuario,turno=usuario.turno,calendario=calendario)
-    else:
-            nombreUsuario="Invitado"
-            print("a la mierda")
+            #renderizaAlta=render_template("calendarioYear.html",cd=coloresdias,colores=colores,mes=mes,year=year,nombre=nombreUsuario,turno=usuario.turno,calendario=calendario)
+
             
          
     return renderizaAlta
@@ -234,8 +234,8 @@ def login():
             return anualllamada(usuario)
 
         else:
-            print("el usuario no existe")
-            flash("El usuario no existe o la contraseña es incorrectapor favor inténtalo de nuevo")
+            
+            flash("El usuario no existe o la contraseña es incorrecta, por favor inténtalo de nuevo")
          
     #else:
         #logout()
