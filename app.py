@@ -33,6 +33,8 @@ app.secret_key = b'eadbfd1f49d6d770ff5cad200d212c74c8f17389df36f7179210af1f9f481
 @app.route("/", methods=["POST","GET"])
 def index():
 
+
+    print(session, "cuando llega a index")
     turno=usuario.turno
     nombreUsuario=usuario.nombre
     import formularios
@@ -54,7 +56,7 @@ def index():
         turno=usuario.turno
 #para la prueba
 
-    session.pop('username', None)
+    
 
 #   activa este return para las pruebas
     #return render_template("pruebas.html",formulario=datosCalendario,year=2022)
@@ -188,7 +190,7 @@ def alta():
 @app.route("/anualllamada",methods=["POST","GET"])
 def anualllamada(usuario):
     print("llega por la llamadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    if session:
+    if 'username' in session:
         nombreUsuario=session['username']
         turno=session['turn']
         #if usuario.turno!=turno:
@@ -227,7 +229,7 @@ def login():
         if gestionBD.comprobarUsuario(usuario):
             session['username'] = usuario.nombre
             session['turn']=usuario.turno
-            session['active']=True
+
                         #mensaje de introducido bien
             anualllamada(usuario)        
             return anualllamada(usuario)
@@ -243,14 +245,15 @@ def login():
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
+    if 'username' in session:
+        session.pop('username', None)
+        
+        session.pop('turn', None)
 
-
-    session.pop('username', None)
-    session.pop('active',None)
     #print(session['turn'])
     #del session['username']
     usuario.nombre="Invitado"
-    usuario.turno="federico"
+    usuario.turno=""
     return redirect(url_for('index'))
 
 # fin iniciar sesion

@@ -24,23 +24,18 @@
                     <li class="nav-item">
                       <a class="nav-link active" href="{{url_for('index')}}">Inicio</a>
                     </li>             
-                  {% if not session %}
+                  {% if 'username' not in session %}
 
                     <li class="nav-item">
                       <a class="nav-link" href="{{ url_for('login') }}">Iniciar Sesion</a>
                     </li>
 
-                    {% if not session %}
+                  
                       <li class="nav-item align-items-lg-end">
                         <a class="nav-link" href="{{ url_for('alta') }}">Registrarse</a>
                       </li>                      
                     {% endif %}
-                  
-                  {% endif %}
-
-
-
-                  {% if session %}
+                  {% if 'username' in session %}
                     <li class="nav-item align-items-lg-end">
                       <a class="nav-link" href="{{ url_for('logout') }}">Cerrar sesion</a>
                     </li>       
@@ -54,7 +49,7 @@
 <!-- Barra de naveegación de turno y año -->
 
         <!-- Barra de navegacion -->
-        {% if session %}
+        {% if 'username'  in session %}
           {% set colorturno=colores[turno] %}
         {% else %}
           {% set colorturno="navbar-dark bg-dark" %}
@@ -72,9 +67,13 @@
                 <li class="nav-item col-7">
                   <h2 class=" p-md-3 text-white" href="#">{{ nombre }}</h2>
                 </li>
-                {% if session %}
+                {% if 'username' in session %}
                   <li class="nav-item col-6">
                     <h2 class=" p-md-3 text-white" href="#">Año: {{ year }}</h2>
+<!-- Preuba de integración de los select de año y turno -->
+                    
+                  
+<!-- Preuba de integración de los select de año y turno -->
                   </li>    
                   <li class="nav-item col-6">
                     <h2 class=" p-md-3 text-white" href="#">Turno: {{ turno }}</h2>
