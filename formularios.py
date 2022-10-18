@@ -1,5 +1,5 @@
 
-from numpy import size
+
 from wtforms import Form
 from wtforms import SelectField,StringField,EmailField,IntegerField,PasswordField
 from wtforms import validators

@@ -13,16 +13,16 @@ import formularios
 
 
 usuario=Usuarios.Usuario()
-usuario.nombre="Folastero"
-mOtro="" #servirá para decir al usuario que está viendo otro turno que no es el suyo
+
+
 turno=""
-hay="HOla"
+
 
 
 
 
 year=date.today().year
-mensaje=""
+
 colores={"A":"bg-success", "B":"bg-primary", "C":"bg-danger" ,"D":"bg-warning" ,"E":"bg-warning bg-opacity-50" }
 coloresdias={"N": "bg-secondary","T":"bg-warning" ,"M":"bg-info" } #Mañana tarde noche
 nombreUsuarioActivo="Invitado"
@@ -68,7 +68,7 @@ def index():
 #   activa este return para las pruebas
     #return render_template("pruebas.html",formulario=datosCalendario,year=2022)
 # fin de prueba
-    return render_template("index.html",formulario=datosCalendario,year=year,turno=turno,colores=colores,mensaje=mensaje,nombre=nombreUsuario)
+    return render_template("index.html",formulario=datosCalendario,year=year,turno=turno,colores=colores,nombre=nombreUsuario)
 # ruta de pruebas
 
 @app.route('/pruebas', methods=['GET', 'POST'])
@@ -101,12 +101,33 @@ def mes():
     print(year,turno)
     calendario=calendarioReal.calendarioReal(int(year),turno)
 
-    return(render_template("calendarioMes.html",mOtro=mOtro,cd=coloresdias,colores=colores,mes=mes,year=year,turno=turno,calendario=calendario))
+    return(render_template("calendarioMes.html",cd=coloresdias,colores=colores,mes=mes,year=year,turno=turno,calendario=calendario))
     #el return devuelve HTML´s enteros
+
+@app.route("/anualllamada",methods=["POST","GET"])
+def anualllamada(usuario):
+
+    if 'username' in session:
+        nombreUsuario=session['username']
+        turno=session['turn']
+        #if usuario.turno!=turno:
+            #print("puede qqqqqqqqqqqqqqqqqqqqqqqqe lleeeeeeeeeeeeeeeegue")
+            #pass # no se muy bien que hacer aqui, seria para que no cambie el color
+    else:
+        nombreUsuario="Invitado"
+        turno=""
+    mes=1  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
+    calendario=calendarioReal.calendarioReal(int(year),turno)
+
+    return(render_template("calendarioYear.html",cd=coloresdias,colores=colores,year=year,turno=turno,nombre=nombreUsuario,calendario=calendario))
+
+
 @app.route("/anual",methods=["POST","GET"])
 def anual():    
-    if session:
+
+    if session: #todo esto es viejo, cambia por username
         nombreUsuario=session['username']
+
         turno=session['turn']
     else:
         nombreUsuario="Invitado"
@@ -114,32 +135,14 @@ def anual():
     year=request.form['year']
     turno=request.form['turno']
 
-    if turno!=usuario.turno:
-        mOtro="Estás viendo otro turno"
-
-    if year=="Elige un año" :
-        mOtro=""
-        year=date.today().year
-    else:
-        mOtro=""
-
-
-
-
-
-    #Colores, dependiendo del turno para los css de bootstrap, usados en cabecera y #TODO menu
-
-
     mes=1  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
     print(year,turno)
     calendario=calendarioReal.calendarioReal(int(year),turno)
-    if mOtro:
-        print("existe")
-        time.sleep(5)
-    else:
-        print("no existe")
-    return(render_template("calendarioYear.html",mOtro=mOtro,cd=coloresdias,turno=turno,nombre=nombreUsuario,colores=colores,mes=mes,year=year,calendario=calendario))
-# Las siguientes lineas crean otra página de prueba de calendarioHTML, puedes borrarlo
+
+    return(render_template("calendarioYear.html",cd=coloresdias,turno=turno,nombre=nombreUsuario,colores=colores,mes=mes,year=year,calendario=calendario))
+
+
+
 @app.route("/alta",methods=["POST","GET"])
 def alta():
     datos=formularios.AltaUsuario(request.form)
@@ -185,29 +188,6 @@ def alta():
          
     return renderizaAlta
 
-@app.route("/anualllamada",methods=["POST","GET"])
-def anualllamada(usuario):
-    print("llega por la llamadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    if 'username' in session:
-        nombreUsuario=session['username']
-        turno=session['turn']
-        #if usuario.turno!=turno:
-            #print("puede qqqqqqqqqqqqqqqqqqqqqqqqe lleeeeeeeeeeeeeeeegue")
-            #pass # no se muy bien que hacer aqui, seria para que no cambie el color
-    else:
-        nombreUsuario="Invitado"
-        turno=""
-    mj=""
-    turno=usuario.turno
-    turnoCabecera=usuario.turno #esta podria usarse para diferenciar la cabecera del turno del calendario
-    
- 
-    mes=1  # FIXME  ESTO VA A SER PARA PROBAR UN MES EN CONCRETO
-
-
-    calendario=calendarioReal.calendarioReal(int(year),turno)
-
-    return(render_template("calendarioYear.html",msj=mj,cd=coloresdias,colores=colores,mes=mes,year=year,turno=turno,nombre=nombreUsuario,calendario=calendario))
 # Las siguientes lineas crean otra página de prueba de calendarioHTML, puedes borrarlo
 # con estas lineas activo el debug para no tener que cerrar y abrir el servidor en cada cambio
 #que hiciera, de esta manera no hay que hacer ctrl-c para salir del servidor.
