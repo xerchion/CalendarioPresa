@@ -30,11 +30,11 @@ nombreUsuarioActivo="Invitado"
 
 # Con esta linea creamos la instancia de la clase Flask a nuestro objeto llamado app que será
 #la aplicación en si.
-app=Flask(__name__)
-app.secret_key = b'eadbfd1f49d6d770ff5cad200d212c74c8f17389df36f7179210af1f9f481741'
+server=Flask(__name__)
+server.secret_key = b'eadbfd1f49d6d770ff5cad200d212c74c8f17389df36f7179210af1f9f481741'
 
 #Creamos el index de la app, utilizando templates, en html desde la carpteta templates
-@app.route("/", methods=["POST","GET"])
+@server.route("/", methods=["POST","GET"])
 def index():
 
 
@@ -71,7 +71,7 @@ def index():
     return render_template("index.html",formulario=datosCalendario,year=year,turno=turno,colores=colores,nombre=nombreUsuario)
 # ruta de pruebas
 
-@app.route('/pruebas', methods=['GET', 'POST'])
+@server.route('/pruebas', methods=['GET', 'POST'])
 def pruebas():
     #flash("federico")
     print("aqui llega a PRUEBAS")
@@ -88,7 +88,7 @@ def pruebas():
 
 #Las siguientes lineas hacen la ruta principal de la aplicación (/) y a esta pagina le 
 # da la funcionalidad de la funcion hola()
-@app.route("/mes",methods=["POST","GET"])
+@server.route("/mes",methods=["POST","GET"])
 def mes():
     year=request.form['year']
     turno=request.form['turno']
@@ -104,7 +104,7 @@ def mes():
     return(render_template("calendarioMes.html",cd=coloresdias,colores=colores,mes=mes,year=year,turno=turno,calendario=calendario))
     #el return devuelve HTML´s enteros
 
-@app.route("/anualllamada",methods=["POST","GET"])
+@server.route("/anualllamada",methods=["POST","GET"])
 def anualllamada(usuario):
 
     if 'username' in session:
@@ -122,7 +122,7 @@ def anualllamada(usuario):
     return(render_template("calendarioYear.html",cd=coloresdias,colores=colores,year=year,turno=turno,nombre=nombreUsuario,calendario=calendario))
 
 
-@app.route("/anual",methods=["POST","GET"])
+@server.route("/anual",methods=["POST","GET"])
 def anual():    
 
     if session: #todo esto es viejo, cambia por username
@@ -143,7 +143,7 @@ def anual():
 
 
 
-@app.route("/alta",methods=["POST","GET"])
+@server.route("/alta",methods=["POST","GET"])
 def alta():
     datos=formularios.AltaUsuario(request.form)
     renderizaAlta=render_template("altaUsuario.html",form=datos,nombre="Invitado")
@@ -196,7 +196,7 @@ def alta():
 
 #iniciar sesion
 
-@app.route('/login', methods=['GET', 'POST'])
+@server.route('/login', methods=['GET', 'POST'])
 def login():
   
     import formularios
@@ -226,7 +226,7 @@ def login():
 
 
 
-@app.route('/logout')
+@server.route('/logout')
 def logout():
     # remove the username from the session if it's there
     if 'username' in session:
@@ -242,8 +242,7 @@ def logout():
 
 # fin iniciar sesion
 if __name__=="__main__":
-    app.run(debug=True)
-
+    server.run(debug=False)
 
 
 
