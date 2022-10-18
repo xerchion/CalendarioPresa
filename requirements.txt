@@ -1,9 +1,4 @@
 Flask
 gunicorn
 holidays
-itsdangerous
-Jinja2
-MarkupSafe
-python-dateutil
-Werkzeug
 WTForms
